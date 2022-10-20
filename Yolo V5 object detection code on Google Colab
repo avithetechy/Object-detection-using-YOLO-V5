@@ -1,0 +1,17 @@
+import torch
+from IPython.display import Image,display
+from google.colab import drive
+drive.mount('/content/drive')
+
+%cd ../content/drive/MyDrive/yolov5-master  # give the folder name that contains Yolo V5 folder repository downloaded and extracted from github.
+
+!python train.py --img 416 --batch 10 --epochs 50 --data avinashdataset/data.yaml --weights yolov5s.pt --cache   # code for training the model
+
+!python detect.py --weights /content/drive/MyDrive/yolov5-master/bestavinash.pt --img 416 --conf 0.1 --source  /content/drive/MyDrive/avinash.jpg   # code for detecting the object in an image.Choose image from any source.
+
+import glob
+from IPython.display import Image, display
+
+for imageName in glob.glob('/content/drive/MyDrive/yolov5-master/runs/detect/exp57/*.jpg'): #assuming JPG   # for displaying the image that is been detected.
+    display(Image(filename=imageName))
+    print("\n")
